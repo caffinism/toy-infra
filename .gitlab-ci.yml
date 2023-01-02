@@ -1,5 +1,6 @@
 before_script:
   - terraform --version
+  - terraform init
   - aws sts get-caller-identity
 
 stages:
