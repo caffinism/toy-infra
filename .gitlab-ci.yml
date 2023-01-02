@@ -12,7 +12,7 @@ build:
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!!"
     - echo "plan start!!"
-    - terraform plan -out ftplan
+    - terraform plan -out tfplan
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
     paths:
