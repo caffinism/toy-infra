@@ -13,6 +13,10 @@ build:
     - echo "Hello, $GITLAB_USER_LOGIN!!"
     - echo "plan start!!"
     - terraform plan -out ftplan
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - tfplan
 
 deploy:
   stage: apply
@@ -20,4 +24,6 @@ deploy:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
     - echo "apply start!!"
     - terraform apply tfplan
+  dependencies:
+    - build
   when: manual
