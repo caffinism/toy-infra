@@ -123,7 +123,10 @@ resource "aws_security_group_rule" "allow_inbound_custom_alb" {
   from_port   = 80
   to_port     = 80
   protocol    = "tcp"
-  cidr_blocks = ["27.122.140.10/32"]
+  cidr_blocks = [
+    "27.122.140.10/32",
+    "${aws_eip.natgw.public_ip}/32"
+    ]
   description = "gitlab, jenkins from internet"
 
   security_group_id = aws_security_group.alb.id
