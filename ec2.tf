@@ -131,7 +131,10 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 resource "aws_iam_role" "ec2_role" {
   name = "${var.user_id}-role-ec2-${local.region_code}"
   managed_policy_arns = [
-    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    "arn:aws:iam::aws:policy/AdministratorAccess",
+    "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
   ]
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
