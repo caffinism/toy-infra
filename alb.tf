@@ -41,7 +41,7 @@ module "main" {
     {
       name             = "${var.user_id}-alb-tg-${local.region_code}-jenkins"
       backend_protocol = "HTTP"
-      backend_port     = 80
+      backend_port     = 8080
       target_type      = "instance"
       protocol_version = "HTTP1"
       health_check = {
@@ -56,7 +56,7 @@ module "main" {
         }
       }
       tags = {
-        Name = "${var.user_id}-alb-tg-${local.region_code}-gitlab"
+        Name = "${var.user_id}-alb-tg-${local.region_code}-jenkins"
       }
     }
   ]

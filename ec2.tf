@@ -110,6 +110,17 @@ resource "aws_security_group_rule" "allow_inbound_custom_jenkins" {
   security_group_id = aws_security_group.jenkins.id
 }
 
+resource "aws_security_group_rule" "allow_inbound_custom_jenkins_2" {
+  type        = "ingress"
+  from_port   = 8080
+  to_port     = 8080
+  protocol    = "tcp"
+  source_security_group_id = aws_security_group.alb.id
+  description = "http from alb"
+
+  security_group_id = aws_security_group.jenkins.id
+}
+
 resource "aws_security_group_rule" "allow_outbound_custom_gjenkins" {
   type        = "egress"
   from_port   = 0
