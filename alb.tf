@@ -41,7 +41,7 @@ module "main" {
     {
       name             = "${var.user_id}-alb-tg-${local.region_code}-jenkins"
       backend_protocol = "HTTP"
-      backend_port     = 8080
+      backend_port     = 80
       target_type      = "instance"
       protocol_version = "HTTP1"
       health_check = {
@@ -52,7 +52,7 @@ module "main" {
       targets = {
         my_target = {
           target_id = aws_instance.jenkins.id
-          port = 80
+          port = 8080
         }
       }
       tags = {
