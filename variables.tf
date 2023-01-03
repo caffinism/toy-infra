@@ -1,10 +1,4 @@
-variable "aws_region" {
-  type = string
-  default = "ap-northeast-2"
-}
+variable "aws_region" {  type = string }
 
-variable "user_id" {
-  type = string
-  default = "scott"
-}
+variable "user_id" {  type = string }
 
