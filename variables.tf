@@ -8,8 +8,3 @@ variable "user_id" {
   default = "scott"
 }
 
-variable "key_name" {
-  type = string
-  default = "key-scott"
-}
-
