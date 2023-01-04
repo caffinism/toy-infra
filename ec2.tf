@@ -8,15 +8,9 @@ resource "aws_instance" "gitlab" {
   associate_public_ip_address = false
   subnet_id                   = aws_subnet.private_2c.id
 
-  user_data = <<-EOF
-  #!/bin/bash -xe
-  exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
-  yum update -y
-  yum install -y httpd.x86_64
-  systemctl start httpd.service
-  systemctl enable httpd.service
-  echo "I am gitlab instance!" > /var/www/html/index.html
-  EOF
+  user_data = templatefile("${path.module}/scripts/user-data.sh", {
+    service_name = "gitlab"
+  })
 
   tags ={
     Name = "${var.user_id}-ec2-${local.region_code}-gitlab"
@@ -70,15 +64,9 @@ resource "aws_instance" "jenkins" {
   associate_public_ip_address = false
   subnet_id                   = aws_subnet.private_2a.id
 
-  user_data = <<-EOF
-  #!/bin/bash -xe
-  exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
-  yum update -y
-  yum install -y httpd.x86_64
-  systemctl start httpd.service
-  systemctl enable httpd.service
-  echo "I am jenkins instance!" > /var/www/html/index.html
-  EOF
+  user_data = templatefile("${path.module}/scripts/user-data.sh", {
+    service_name = "jenkins"
+  })
 
   tags ={
     Name = "${var.user_id}-ec2-${local.region_code}-jenkins"
