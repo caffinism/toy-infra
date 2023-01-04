@@ -1,7 +1,7 @@
 # gitlab ec2
 resource "aws_instance" "gitlab" {
-  ami = "ami-035233c9da2fabf52" # amzn2-ami-kernel-5.10-hvm-2.0.20221210.1-x86_64-gp2
-  instance_type = "t3a.medium"
+  ami = "${var.gitlab_ami}" # amzn2-ami-kernel-5.10-hvm-2.0.20221210.1-x86_64-gp2
+  instance_type = "${var.gitlab_instance_type}"
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.id
   vpc_security_group_ids      = [aws_security_group.gitlab.id]
   availability_zone           = "${var.aws_region}c"
@@ -62,8 +62,8 @@ resource "aws_security_group_rule" "allow_outbound_custom_gitlab" {
 
 # jenkins ec2
 resource "aws_instance" "jenkins" {
-  ami = "ami-035233c9da2fabf52" # amzn2-ami-kernel-5.10-hvm-2.0.20221210.1-x86_64-gp2
-  instance_type = "t3a.medium"
+  ami = "${var.jenkins_ami}" # amzn2-ami-kernel-5.10-hvm-2.0.20221210.1-x86_64-gp2
+  instance_type = "${var.jenkins_instance_type}"
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.id
   vpc_security_group_ids      = [aws_security_group.jenkins.id]
   availability_zone           = "${var.aws_region}a"

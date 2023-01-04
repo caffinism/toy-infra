@@ -1,5 +1,5 @@
-# need to manage nameservers for scott.ml from freenom.com
+# need to manage nameservers for ${var.domain} from freenom.com
 output "name_servers"{
-  value = aws_route53_zone.scott1_ml.name_servers
-  description = "need to manage nameservers for scott.ml from freenom.com"
+  value = aws_route53_zone.domain.name_servers
+  description = "need to manage nameservers for ${var.domain} from freenom.com"
 }
