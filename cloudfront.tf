@@ -40,6 +40,10 @@ resource "aws_cloudfront_distribution" "s3_fe" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
+  depends_on = [
+    aws_acm_certificate.cert,
+  ]
+
 }
 
 resource "aws_cloudfront_origin_access_control" "s3_fe" {
