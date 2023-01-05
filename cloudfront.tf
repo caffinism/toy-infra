@@ -1,4 +1,4 @@
-resource "aws_cloudfront_diftribution" "s3_fe" {
+resource "aws_cloudfront_distribution" "s3_fe" {
 
   origin {
     domain_name              = aws_s3_bucket.fe.bucket_regional_domain_name

@@ -28,7 +28,7 @@ resource "aws_route53_record" "jenkins_domain" {
 
 resource "aws_route53_record" "cert" {
   zone_id = aws_route53_zone.domain.zone_id
-  name    = aws_acm_certificate.cert.resource_record_name
-  type    = aws_acm_certificate.cert.resource_record_type
+  name    = "${aws_acm_certificate.cert.resource_record_name}"
+  type    = "${aws_acm_certificate.cert.resource_record_type}"
   records = ["${aws_acm_certificate.cert.resource_record_value}", ]
 }
