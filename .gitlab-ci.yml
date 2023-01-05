@@ -1,5 +1,4 @@
 before_script:
-  - ls
   - terraform --version
   - terraform init
   - aws sts get-caller-identity
