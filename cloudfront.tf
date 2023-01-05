@@ -24,6 +24,23 @@ resource "aws_cloudfront_distribution" "s3_fe" {
     acm_certificate_arn = aws_acm_certificate.cert.arn
   }
 
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD",]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "scott-origin"
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    path_patterns = "*"
+  }
+
 }
 
 resource "aws_cloudfront_origin_access_control" "s3_fe" {
