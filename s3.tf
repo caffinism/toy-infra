@@ -27,9 +27,3 @@ resource "aws_s3_bucket" "fe" {
   bucket = "${var.user_id}-fe-bucket"
 
 }
-
-resource "aws_s3_bucket_acl" "fe" {
-  bucket = aws_s3_bucket.fe.id
-  acl    = "private"
-
-}
