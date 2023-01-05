@@ -27,3 +27,12 @@ resource "aws_s3_bucket" "fe" {
   bucket = "${var.user_id}-fe-bucket"
 
 }
+
+resource "aws_s3_bucket_public_access_block" "fe" {
+  bucket = aws_s3_bucket.fe.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
