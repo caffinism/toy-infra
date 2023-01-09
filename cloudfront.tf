@@ -22,6 +22,7 @@ resource "aws_cloudfront_distribution" "s3_fe" {
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.cert.id
+    ssl_support_method = "sni-only"
   }
 
   default_cache_behavior {
