@@ -26,6 +26,11 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 resource "aws_s3_bucket" "fe" {
   bucket = "${var.user_id}-fe-bucket"
 
+}
+
+resource "aws_s3_bucket_policy" "fe" {
+  bucket = aws_s3_bucket.fe.id
+
   policy = templatefile("${path.module}/policy/s3-fe.json", {
     user_id = "${var.user_id}"
   })
