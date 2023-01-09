@@ -26,6 +26,29 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 resource "aws_s3_bucket" "fe" {
   bucket = "${var.user_id}-fe-bucket"
 
+  policy = <<EOF
+  {
+    "Version": "2008-10-17",
+    "Id": "PolicyForCloudFrontPrivateContent",
+    "Statement": [
+        {
+            "Sid": "AllowCloudFrontServicePrincipal",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::${var.user_id}-fe-bucket/*",
+            "Condition": {
+                "StringEquals": {
+                  "AWS:SourceArn": "arn:aws:cloudfront::056231226580:distribution/${aws_cloudfront_distribution.s3_fe.id}"
+                }
+            }
+        }
+    ]
+  }
+  EOF
+
 }
 
 resource "aws_s3_bucket_public_access_block" "fe" {
