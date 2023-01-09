@@ -27,12 +27,17 @@ resource "aws_route53_record" "jenkins_domain" {
 }
 
 resource "aws_route53_record" "cert" {
-  zone_id = aws_route53_zone.domain.zone_id
-  name    = aws_acm_certificate.cert.resource_record_name
-  type    = aws_acm_certificate.cert.resource_record_type
-  records = ["${aws_acm_certificate.cert.resource_record_value}", ]
+  for_each = {
+    for dvo in aws_acm_certificate.example.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
 
-  depends_on = [
-    aws_acm_certificate.cert
-  ]
+  zone_id = aws_route53_zone.domain.zone_id
+  name            = each.value.name
+  records         = [each.value.record]
+  type            = each.value.type
+
 }
