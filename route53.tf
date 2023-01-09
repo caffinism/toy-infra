@@ -35,9 +35,11 @@ resource "aws_route53_record" "cert" {
     }
   }
 
-  zone_id = aws_route53_zone.domain.zone_id
+  zone_id         = aws_route53_zone.domain.zone_id
   name            = each.value.name
   records         = [each.value.record]
   type            = each.value.type
+  ttl             = 60
+  allow_overwrite = true
 
 }
