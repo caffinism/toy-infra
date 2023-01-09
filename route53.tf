@@ -31,4 +31,8 @@ resource "aws_route53_record" "cert" {
   name    = aws_acm_certificate.cert.resource_record_name
   type    = aws_acm_certificate.cert.resource_record_type
   records = ["${aws_acm_certificate.cert.resource_record_value}", ]
+
+  depends_on = [
+    aws_acm_certificate.cert
+  ]
 }
