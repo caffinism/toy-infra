@@ -1,55 +1,55 @@
-# resource "aws_cloudfront_distribution" "s3_fe" {
+resource "aws_cloudfront_distribution" "s3_fe" {
 
-#   origin {
-#     domain_name              = aws_s3_bucket.fe.bucket_regional_domain_name
-#     origin_access_control_id = aws_cloudfront_origin_access_control.s3_fe.id
-#     origin_id                = "scott-origin"
-#   }
+  origin {
+    domain_name              = aws_s3_bucket.fe.bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_fe.id
+    origin_id                = "scott-origin"
+  }
 
-#   enabled             = true
-#   default_root_object = "index.html"
+  enabled             = true
+  default_root_object = "index.html"
 
-#   aliases = ["${var.domain}", ]
+  aliases = ["${var.domain}", ]
 
-#   price_class = "PriceClass_200"
+  price_class = "PriceClass_200"
 
-#   restrictions {
-#     geo_restriction {
-#       restriction_type = "whitelist"
-#       locations        = ["KR",]
-#     }
-#   }
+  restrictions {
+    geo_restriction {
+      restriction_type = "whitelist"
+      locations        = ["KR",]
+    }
+  }
 
-#   viewer_certificate {
-#     acm_certificate_arn = aws_acm_certificate.cert.id
-#   }
+  viewer_certificate {
+    acm_certificate_arn = aws_acm_certificate.cert.id
+  }
 
-#   default_cache_behavior {
-#     allowed_methods  = ["GET", "HEAD",]
-#     cached_methods   = ["GET", "HEAD"]
-#     target_origin_id = "scott-origin"
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD",]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "scott-origin"
 
-#     forwarded_values {
-#       query_string = false
+    forwarded_values {
+      query_string = false
 
-#       cookies {
-#         forward = "none"
-#       }
-#     }
+      cookies {
+        forward = "none"
+      }
+    }
 
-#     viewer_protocol_policy = "redirect-to-https"
-#   }
+    viewer_protocol_policy = "redirect-to-https"
+  }
 
-#   depends_on = [
-#     aws_acm_certificate.cert,
-#   ]
+  depends_on = [
+    aws_acm_certificate.cert,
+  ]
 
-# }
+}
 
-# resource "aws_cloudfront_origin_access_control" "s3_fe" {
-#   name                              = "${aws_s3_bucket.fe.bucket_regional_domain_name}"
-#   description                       = ""
-#   origin_access_control_origin_type = "s3"
-#   signing_behavior                  = "always"
-#   signing_protocol                  = "sigv4"
-# }
+resource "aws_cloudfront_origin_access_control" "s3_fe" {
+  name                              = "${aws_s3_bucket.fe.bucket_regional_domain_name}"
+  description                       = ""
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
