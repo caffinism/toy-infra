@@ -43,3 +43,16 @@ resource "aws_route53_record" "cert" {
   allow_overwrite = true
 
 }
+
+resource "aws_route53_record" "cloudfront" {
+  zone_id = aws_route53_zone.domain.zone_id
+  name    = "${var.domain}"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.s3_fe.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_fe.hosted_zone_id
+    evaluate_target_health = true
+  }
+
+}
